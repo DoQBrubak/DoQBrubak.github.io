@@ -11,6 +11,7 @@ function loadData() {
     $wikiElem.text("");
     $nytElem.text("");
 
+    console.log("You hit the button");
     // load streetview
 
     // YOUR CODE GOES HERE!
