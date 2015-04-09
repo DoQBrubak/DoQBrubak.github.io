@@ -28,14 +28,20 @@ function loadData() {
     // For API query format refer: http://developer.nytimes.com/io-docs
     var nytApiUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json'+
         '?callback=svc_search_v2_articlesearch'+
-        '&q=%data1%'+
-        '&f1=headline,web_url,snippet,abstract'+
+        '&q='+$requestCity+
+        '&f1=headline,web_url,snippet'+
+        '&sort=newest'+
         '&api-key='+nytApiKey;
     /* The following two lines are equivalent means of querying the API,
      * the 2nd is shorthand for the 1st (commented version).
      */
     //$.ajax({url: nytApiUrl,dataType: 'json',success: function(data){console.log(data)}});
-    $.getJSON(nytApiUrl, function(data){console.log(data)});
+   
+    $.getJSON(nytApiUrl, function(data){
+        var drd = data.response.docs;
+        for (var i=0; i < drd.length; i++){
+            console.log(drd[i].headline.main + ': ' + drd[i].pub_date);
+    }})
 
     return false;
 };
