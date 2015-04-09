@@ -1,4 +1,8 @@
 
+
+
+
+
 function loadData() {
 
     var $body = $('body');
@@ -10,8 +14,18 @@ function loadData() {
     // clear out old data before new request
     $wikiElem.text("");
     $nytElem.text("");
+    
 
-    console.log("You hit the button");
+    
+    var $requestStreet = $('#street').val();
+    var $requestCity = $('#city').val();
+
+    var imgUrl = "https://maps.googleapis.com/maps/api/streetview?location="+
+        $requestStreet + ", " + $requestCity + "&size=400x400&pitch=-5&fov=90";
+
+    $body.append(HTMLbgImg.replace('%data%', imgUrl));
+    console.log(imgUrl);
+
     // load streetview
 
     // YOUR CODE GOES HERE!
@@ -22,3 +36,12 @@ function loadData() {
 $('#form-container').submit(loadData);
 
 // loadData();
+
+
+
+
+
+
+var HTMLbgImg = '<img class="bgimg" src="%data%">';
+
+
