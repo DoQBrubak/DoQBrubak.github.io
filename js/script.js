@@ -20,12 +20,20 @@ function loadData() {
 
     // query NYT Article API and use results to populate #nytimes-articles <ul>
     var nytApiKey = '937a887a873a34ee75efafe87138b5b0:16:71810016';
-    var nytApiUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json'+
-    '?[q=%data1%&f1=headline,web_url,snippet,abstract&sort=newest]'+
-    '&api-key='+nytApiKey;
-    $.getJSON();
+    var nytApiUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?[q=murder&sort=newest]&api-key='+nytApiKey;
+    $.ajax({
+        url: nytApiUrl,
+        //jsonp: callback,
+        //data: data,
+        dataType: 'jsonp',
+        success: function(response){
+            console.log(response);
+        }
+    });
 
+    //$.getJSON(nytApiUrl);//, function(data){console.log(data)});
 
+/*&f1=headline,web_url,snippet,abstract*/
 
     return false;
 };
