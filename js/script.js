@@ -38,9 +38,9 @@ function loadUdac() {
     var randTrack = Math.round(Math.random()*6);
     console.log('degree #: '+randDegree+'... track #: '+randTrack);
 
-    $.getJSON(apiUrl, function(udacJSON){
-        $('#udac-nd').html(udacJSON.degrees[randDegree]['title']);
-        $('#udac-track').html(udacJSON.tracks[randTrack]['name']);
+    $.getJSON(apiUrl, function(result){
+        $('#udac-nd').html(result.degrees[randDegree]['title']);
+        $('#udac-track').html(result.tracks[randTrack]['name']);
     });
 }
 
