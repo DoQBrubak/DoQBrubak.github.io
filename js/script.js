@@ -1,8 +1,6 @@
 
 
 
-
-
 function loadData() {
 
     var $body = $('body');
@@ -16,7 +14,7 @@ function loadData() {
     $nytElem.text("");
     
 
-    
+
     var $requestStreet = $('#street').val();
     var $requestCity = $('#city').val();
 
@@ -33,7 +31,24 @@ function loadData() {
     return false;
 };
 
+function loadUdac() {
+    var apiUrl = 'https://www.udacity.com/public-api/v0/courses';
+    var randDegree = Math.round(Math.random()*4);
+    var randTrack = Math.round(Math.random()*6);
+    console.log('degree #: '+randDegree+'... track #: '+randTrack);
+
+    $.getJSON(apiUrl, function(udacJSON){
+        $('#udac-nd').html(udacJSON.degrees[randDegree]['title']);
+        $('#udac-track').html(udacJSON.tracks[randTrack]['name']);
+    });
+}
+
+
+
 $('#form-container').submit(loadData);
+$('#udac-button').click(loadUdac);
+
+
 
 // loadData();
 
@@ -43,5 +58,4 @@ $('#form-container').submit(loadData);
 
 
 var HTMLbgImg = '<img class="bgimg" src="%data%">';
-
 
