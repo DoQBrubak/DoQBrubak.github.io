@@ -1,43 +1,41 @@
 
 function loadData() {
-
+    // These are jQuery objects the function will use
     var $body = $('body');
     var $wikiElem = $('#wikipedia-links');
     var $nytHeaderElem = $('#nytimes-header');
     var $nytElem = $('#nytimes-articles');
     var $greeting = $('#greeting');
 
-    // clear out old data before new request
+    // These are the query terms loaded from the form
+    var $requestStreet = $('#street').val();
+    var $requestCity = $('#city').val();
+
+    // Old data must be cleared before new requests return
     $wikiElem.text("");
     $nytElem.text("");
 
-    // query streetview and use result as background image    
-    var $requestStreet = $('#street').val();
-    var $requestCity = $('#city').val();
+    // Now query google streetview and use result as background image    
     var imgUrl = "https://maps.googleapis.com/maps/api/streetview?location="+
         $requestStreet + ", " + $requestCity + "&size=400x400&pitch=-5&fov=90";
+    // Note the raw HTML string - from end of script.js
     $body.append(HTMLbgImg.replace('%data%', imgUrl));
 
-    // query NYT Article API and use results to populate #nytimes-articles <ul>
+    /* Now query NYT API and use results to populate #nytimes-articles list.
+     * I first got a key. Refer: http://developer.nytimes.com/apps/mykeys
+     */
     var nytApiKey = '937a887a873a34ee75efafe87138b5b0:16:71810016';
-    var nytApiUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?callback=svc_search_v2_articlesearch&q=murder&api-key='+nytApiKey;
-    
-/*
-    $.ajax(
-        {
-        url: nytApiUrl,
-        jsonp: 'svc_search_v2_articlesearch',
-        //data: data,
-        dataType: 'jsonp',
-        success: function(response){
-            console.log(response);
-        }
-    });
-    */
-
+    // For API query format refer: http://developer.nytimes.com/io-docs
+    var nytApiUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json'+
+        '?callback=svc_search_v2_articlesearch'+
+        '&q=%data1%'+
+        '&f1=headline,web_url,snippet,abstract'+
+        '&api-key='+nytApiKey;
+    /* The following two lines are equivalent means of querying the API,
+     * the 2nd is shorthand for the 1st (commented version).
+     */
+    //$.ajax({url: nytApiUrl,dataType: 'json',success: function(data){console.log(data)}});
     $.getJSON(nytApiUrl, function(data){console.log(data)});
-
-/*&f1=headline,web_url,snippet,abstract*/
 
     return false;
 };
