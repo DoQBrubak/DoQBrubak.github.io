@@ -1,4 +1,4 @@
-
+var nytApiKey = '937a887a873a34ee75efafe87138b5b0:16:71810016'
 
 
 function loadData() {
@@ -13,8 +13,6 @@ function loadData() {
     $wikiElem.text("");
     $nytElem.text("");
     
-
-
     var $requestStreet = $('#street').val();
     var $requestCity = $('#city').val();
 
@@ -23,6 +21,9 @@ function loadData() {
 
     $body.append(HTMLbgImg.replace('%data%', imgUrl));
     console.log(imgUrl);
+
+    $.getJSON();
+
 
     // load streetview
 
